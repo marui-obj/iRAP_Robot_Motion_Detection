@@ -72,6 +72,15 @@ int main (int argc, char* argv[])
                     cv::FONT_HERSHEY_SIMPLEX, 0.5, cv::Scalar(0, 0, 0));
 
         //find contour
+        std::vector<std::vector<cv::Point>> contours;
+
+        cv::findContours(fgMaskProcess, contours, cv::RETR_EXTERNAL, cv::CHAIN_APPROX_SIMPLE);
+        for (int i = 0; i<contours.size(); ++i)
+        {
+            cv::Rect r = cv::boundingRect(contours.at(i));
+            cv::rectangle(ori_frame, r, CV_RGB(255, 0, 0));
+        }
+
 
         cv::imshow("Original Frame", ori_frame);
         cv::imshow("Preprocess Frame", frame);
